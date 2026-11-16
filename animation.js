@@ -23,7 +23,7 @@ let moonFrame = 1;
 function animateMoon() {
     moonFrame = moonFrame === 1 ? 2 : 1;
     moonImage.src = `moon${moonFrame}.png`;
-    setTimeout(animateMoon, 200);
+    setTimeout(animateMoon, 500);
 }
 
 animateCoffee();

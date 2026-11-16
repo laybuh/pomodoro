@@ -9,36 +9,40 @@
 </head>
 
 <body>
-    <!-- pomodoro settings -->
-    <div id="pomodoro">
-        <button class="pomodoro-btn" id="focus-btn">
-            <img id="coffee-image" class="pomodoro-icon" src="coffee.png" alt="coffee icon">
-            <span class="pomodoro-label">focus</span>
-        </button>
-        <button class="pomodoro-btn" id="break-btn">
-            <img id="cat-image" class="pomodoro-icon" src="cat.png" alt="cat icon">
-            <span class="pomodoro-label">short break</span>
-        </button>
-        <button class="pomodoro-btn" id="long-break-btn">
-            <img id="moon-image" class="pomodoro-icon" src="moon.png" alt="moon icon">
-            <span class="pomodoro-label">long break</span>
-        </button>
-    </div>
-    <!--title and desc-->
-    <h1>pomodoro timer</h1>
-    <p>welcome to my cute little pomodoro timer app.</p>
-    <p>click on the button below to start the timer!</p>
-    <!--timer itself-->
-    <div id="timer">
-        <span id="minutes">25</span>:<span id="seconds">00</span>
-    </div>
-    <!--time's up message-->
-    <div id="message"></div>
-    <!--timer buttons-->
-    <div id="timer-btns">
-        <button id="start-btn">start</button>
-        <button id="stop-btn">stop</button>
-        <button id="reset-btn">reset</button>
+    <div id="window">
+        <!-- pomodoro settings -->
+        <div id="pomodoro">
+            <button class="pomodoro-btn" id="focus-btn">
+                <img id="coffee-image" class="pomodoro-icon" src="coffee.png" alt="coffee icon">
+                <span class="pomodoro-label">focus</span>
+            </button>
+            <button class="pomodoro-btn" id="break-btn">
+                <img id="cat-image" class="pomodoro-icon" src="cat.png" alt="cat icon">
+                <span class="pomodoro-label">short break</span>
+            </button>
+            <button class="pomodoro-btn" id="long-break-btn">
+                <img id="moon-image" class="pomodoro-icon" src="moon.png" alt="moon icon">
+                <span class="pomodoro-label">long break</span>
+            </button>
+        </div>
+        <!--title and desc-->
+        <div id="timer-info">
+            <h1>pomodoro timer</h1>
+            <p>welcome to my cute little pomodoro timer app.</p>
+            <p>click on the button below to start the timer!</p>
+        </div>
+        <!--timer itself-->
+        <div id="timer">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <!--time's up message-->
+        <div id="message"></div>
+        <!--timer buttons-->
+        <div id="timer-btns">
+            <button id="start-btn">start</button>
+            <button id="stop-btn">stop</button>
+            <button id="reset-btn">reset</button>
+        </div>
     </div>
 
 
