@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>cute pixel pomodoro</title>
-        <link rel="stylesheet" href="style.css"> 
-    </head>
-    <body>
-        <script src="script.js"></script>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cute pixel pomodoro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- pomodoro settings -->
+    <div id="pomodoro">
+        <button class="pomodoro-btn" id="focus-btn">focus</button>
+        <button class="pomodoro-btn" id="break-btn">short break</button>
+        <button class="pomodoro-btn" id="long-break-btn">long break</button>
+    </div>
+    <!--title and desc-->
+    <h1>pomodoro timer</h1>
+    <p>welcome to my cute little pomodoro timer app.</p>
+    <p>click on the button below to start the timer!</p>
+    <!--timer itself-->
+    <div id="timer">
+        <span id="minutes">25</span>:<span id="seconds">00</span>
+    </div>
+    <!--timer buttons-->
+    <div id="timer-btns">
+        <button id="start-btn">start</button>
+        <button id="stop-btn">stop</button>
+        <button id="reset-btn">reset</button>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
 </html>
