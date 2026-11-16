@@ -11,9 +11,18 @@
 <body>
     <!-- pomodoro settings -->
     <div id="pomodoro">
-        <button class="pomodoro-btn" id="focus-btn">focus</button>
-        <button class="pomodoro-btn" id="break-btn">short break</button>
-        <button class="pomodoro-btn" id="long-break-btn">long break</button>
+        <button class="pomodoro-btn" id="focus-btn">
+            <img id="coffee-image" class="pomodoro-icon" src="coffee.png" alt="coffee icon">
+            <span class="pomodoro-label">focus</span>
+        </button>
+        <button class="pomodoro-btn" id="break-btn">
+            <img id="cat-image" class="pomodoro-icon" src="cat.png" alt="cat icon">
+            <span class="pomodoro-label">short break</span>
+        </button>
+        <button class="pomodoro-btn" id="long-break-btn">
+            <img id="moon-image" class="pomodoro-icon" src="moon.png" alt="moon icon">
+            <span class="pomodoro-label">long break</span>
+        </button>
     </div>
     <!--title and desc-->
     <h1>pomodoro timer</h1>
@@ -34,6 +43,7 @@
 
 
     <script src="script.js"></script>
+    <script src="animation.js"></script>
 </body>
 
 </html>

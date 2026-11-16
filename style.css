@@ -5,3 +5,12 @@ body {
     image-rendering: pixelated;
 }
 
+.pomodoro-icon {
+    display: block;
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    background: #e8cdf7;
+
+}
