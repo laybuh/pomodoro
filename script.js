@@ -6,6 +6,7 @@ const resetButton = document.getElementById("reset-btn");
 const focusButton = document.getElementById("focus-btn");
 const breakButton = document.getElementById("break-btn");
 const longBreakButton = document.getElementById("long-break-btn");
+const message = document.getElementById("message");
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -32,6 +33,8 @@ function start() {
         }
         else {
             stop();
+            playAlertSound();
+            message.textContent = "Time's up!";
         }
     }, 1000);
 }
@@ -43,9 +46,20 @@ function reset() {
 }
 
 function setTimerType(minutes) {
+    stop();
     pomodoroMinutes = minutes;
     totalSeconds = pomodoroMinutes * 60;
     showTime();
+}
+
+function playAlertSound() {
+    const ctx = new AudioContext();
+    const oscillator = ctx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(440, ctx.currentTime);
+    oscillator.connect(ctx.destination);
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + 0.4);
 }
 
 startButton.addEventListener("click", start);
