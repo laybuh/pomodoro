@@ -11,6 +11,7 @@ const message = document.getElementById("message");
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
 let timer = null;
+let endTime = null;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -25,24 +26,32 @@ function stop() {
 
 function start() {
     if (timer) return;
+    if (totalSeconds <= 0) return;
 
-    timer = setInterval(() => {
-        if (totalSeconds > 0) {
-            totalSeconds--;
-            showTime();
-        }
-        else {
-            stop();
-            playAlertSound();
-            message.textContent = "Time's up!";
-        }
-    }, 1000);
+    endTime = Date.now() + totalSeconds * 1000;
+    timer = setInterval(timeTick, 250);
 }
 
 function reset() {
     stop();
     totalSeconds = pomodoroMinutes * 60;
     showTime();
+}
+
+function timeTick(){
+    const timeLeft = endTime - Date.now();
+    const secondsLeft = Math.max(0, Math.ceil(timeLeft / 1000));
+
+    if (secondsLeft === 0) {
+        stop();
+        playAlertSound();
+        message.textContent = "Time's up!";
+    }
+
+    if (secondsLeft !== totalSeconds) {
+        totalSeconds = secondsLeft;
+        showTime();
+    }
 }
 
 function setTimerType(minutes) {
