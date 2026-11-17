@@ -123,7 +123,7 @@ function steamLoop() {
 function moonLoop() {
     loopFrame = (loopFrame + 1) % moonFrames.length;
     timerImg.src = moonFrames[loopFrame];
-    imgLoop = setTimeout(moonLoop, 400);
+    imgLoop = setTimeout(moonLoop, 100);
 }
 
 function kittyBreathLoop() {
