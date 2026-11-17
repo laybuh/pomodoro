@@ -79,7 +79,9 @@ function timeTick() {
         stop();
         playAlertSound();
         if ("Notification" in window && Notification.permission === "granted") {
-            new Notification("time's up!", { body: "take a break", icon: "images/icon3.png" });
+            navigator.serviceWorker.ready.then((registration) => {
+                registration.showNotification("time's up!", { body: "take a break", icon: "images/icon3.png", vibrate: [200, 100, 200] });
+            });
         }
         message.textContent = "Time's up!";
         showFinishedImg();
@@ -111,12 +113,14 @@ function closeTimerWindow() {
 
 function playAlertSound() {
     if (!audioContext) return;
-    const oscillator = audioContext.createOscillator();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-    oscillator.connect(audioContext.destination);
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.4);
+    audioContext.resume().then(() => {
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+        oscillator.connect(audioContext.destination);
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.4);
+    });
 }
 
 function getTimePassed() {
