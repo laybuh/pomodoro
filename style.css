@@ -79,7 +79,8 @@ button {
     padding: 20px;
 }
 
-.minimized #close-btn, .minimized #timer-close-btn {
+.minimized #close-btn,
+.minimized #timer-close-btn {
     display: none;
 }
 
@@ -114,10 +115,10 @@ button {
     font-family: 'Silkscreen', san-serif;
     color: #000;
     background: #f6c6f7;
-    box-shadow: 
-                inset 3px 3px 0 #fbd0fb,
-                inset -3px -3px #c592cb,
-                3px 3px 0 rgba(77, 60, 77, 0.3);
+    box-shadow:
+        inset 3px 3px 0 #fbd0fb,
+        inset -3px -3px #c592cb,
+        3px 3px 0 rgba(77, 60, 77, 0.3);
     border: 2px solid rgb(128, 95, 128);
     padding: 8px 18px;
     border-radius: 0;
@@ -186,13 +187,71 @@ button {
     text-shadow: 0 1px 2px rgba(28, 27, 27, 0.8);
 }
 
-#window.minimized, #timer-window.minimized {
+#window.minimized,
+#timer-window.minimized {
     height: auto;
     position: fixed;
     bottom: 50px;
     margin: 0;
 }
 
-.minimized > :not(#window-bar):not(#timer-window-bar) {
+.minimized> :not(#window-bar):not(#timer-window-bar) {
     display: none;
+}
+
+@media (max-width: 640px) {
+
+    #window,
+    #timer-window {
+        width: 95%;
+        height: auto;
+        margin: 10px 0;
+    }
+
+    #main-content {
+        padding: 15px 10px;
+    }
+
+    .pomodoro-btn {
+        padding: 0 0 5px;
+    }
+
+    .pomodoro-icon {
+        width: 96px;
+        height: 101px;
+        margin: 2px;
+    }
+
+    #moon-image {
+        padding: 0 10.5px;
+    }
+
+    #timer-info h1 {
+        font-size: 20px;
+    }
+
+    #timer {
+        font-size: 80px;
+    }
+
+    #timer-btns {
+        padding: 15px 0 20px;
+    }
+
+    #timer-btns button {
+        padding: 8px 12px;
+    }
+
+    #pomodoro {
+        gap: 5px;
+    }
+
+    #minimize-btn,
+    #timer-minimize-btn {
+        display: none;
+    }
+
+    .pomodoro-label {
+        font-size: 13px;
+    }
 }
