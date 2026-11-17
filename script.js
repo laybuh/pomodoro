@@ -12,6 +12,7 @@ const timerImg = document.getElementById("timer-image");
 const timerCloseButton = document.getElementById("timer-close-btn");
 const mainWindow = document.getElementById("window");
 const moonImgs = ["moon5.png", "moon4.png", "moon3.png", "moon1.png", "moon3.png", "moon4.png"];
+const coffeeImgs = ["coffee1.png", "coffee2.png", "coffee3.png", "coffee4.png", "coffee5.png"];
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -61,17 +62,17 @@ function timeTick() {
     const timeLeft = endTime - Date.now();
     const secondsLeft = Math.max(0, Math.ceil(timeLeft / 1000));
 
+    if (secondsLeft !== totalSeconds) {
+        totalSeconds = secondsLeft;
+        showTime();
+    }
+
     if (secondsLeft === 0) {
         stop();
         playAlertSound();
         message.textContent = "Time's up!";
         showFinishedImg();
         return;
-    }
-
-    if (secondsLeft !== totalSeconds) {
-        totalSeconds = secondsLeft;
-        showTime();
     }
 
     updateTimerImg();
@@ -114,16 +115,16 @@ function stopImgLoop() {
     imgLoop = null;
 }
 
-function steamLoop() {
-    loopFrame = loopFrame === 1 ? 2 : 1;
-    timerImg.src = `coffee${loopFrame}.png`;
-    imgLoop = setTimeout(steamLoop, 700);
+function coffeeLoop() {
+    loopFrame = (loopFrame + 1) % coffeeImgs.length;
+    timerImg.src = coffeeImgs[loopFrame];
+    imgLoop = setTimeout(coffeeLoop, 800);
 }
 
 function moonLoop() {
-    loopFrame = (loopFrame + 1) % moonFrames.length;
-    timerImg.src = moonFrames[loopFrame];
-    imgLoop = setTimeout(moonLoop, 100);
+    loopFrame = (loopFrame + 1) % moonImgs.length;
+    timerImg.src = moonImgs[loopFrame];
+    imgLoop = setTimeout(moonLoop, 800);
 }
 
 function kittyBreathLoop() {
@@ -135,7 +136,7 @@ function kittyBreathLoop() {
 function kittyBlinkLoop() {
     timerImg.src = "cat1.png";
     imgLoop = setTimeout(() => {
-        timerImg.src("cat2.png");
+        timerImg.src = "cat2.png";
         imgLoop = setTimeout(kittyBlinkLoop, 150);
     }, 3000);
 }
@@ -145,7 +146,9 @@ function updateTimerImg() {
 
     if (timerType == "focus") {
         if (timePassed < 0.4) {
-            if (!imgLoop) steamLoop();
+            if (!imgLoop) {
+                coffeeLoop();
+            }
         }
         else {
             stopImgLoop();
