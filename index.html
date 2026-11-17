@@ -7,6 +7,7 @@
     <title>cute pixel pomodoro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="manifest.json" />
 </head>
 
 <body>
@@ -75,6 +76,11 @@
 
     <script src="script.js"></script>
     <script src="animation.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("pwabuilder-sw.js");
+        }
+    </script>
 </body>
 
 </html>

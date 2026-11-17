@@ -1,4 +1,4 @@
-const CACHE = "pomodoro-v1";
+const CACHE = "pomodoro";
 
 const FILES = [
   "./",
@@ -8,14 +8,24 @@ const FILES = [
   "animation.js",
   "manifest.json",
   "clouds.png",
+  "favicon.png",
+  "folder1.png",
   "coffee1.png",
   "coffee2.png",
+  "coffee3.png",
+  "coffee4.png",
+  "coffee5.png",
   "cat1.png",
   "cat2.png",
+  "cat3.png",
   "moon1.png",
   "moon2.png",
+  "moon3.png",
+  "moon4.png",
+  "moon5.png",
   "images/icon1.png",
-  "images/icon2.png"
+  "images/icon2.png",
+  "images/icon3.png"
 ];
 
 self.addEventListener("install", (event) => {

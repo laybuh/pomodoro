@@ -47,6 +47,10 @@ function start() {
     if (!audioContext) audioContext = new AudioContext();
     audioContext.resume();
 
+    if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission();
+    }
+
     message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
     timer = setInterval(timeTick, 250);
@@ -74,6 +78,9 @@ function timeTick() {
     if (secondsLeft === 0) {
         stop();
         playAlertSound();
+        if ("Notification" in window && Notification.permission === "granted") {
+            new Notification("time's up!", { body: "take a break", icon: "images/icon3.png" });
+        }
         message.textContent = "Time's up!";
         showFinishedImg();
         return;
