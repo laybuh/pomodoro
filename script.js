@@ -28,6 +28,7 @@ function start() {
     if (timer) return;
     if (totalSeconds <= 0) return;
 
+    message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
     timer = setInterval(timeTick, 250);
 }
@@ -35,6 +36,7 @@ function start() {
 function reset() {
     stop();
     totalSeconds = pomodoroMinutes * 60;
+    message.textContent = "";
     showTime();
 }
 
@@ -58,6 +60,7 @@ function setTimerType(minutes) {
     stop();
     pomodoroMinutes = minutes;
     totalSeconds = pomodoroMinutes * 60;
+    message.textContent = "";
     showTime();
 }
 
