@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap");
+
 body {
+    font-family: 'Pixelify Sans', sans-serif;
     margin: 0;
     min-height: 100vh;
     background: #e8cdf7 url("clouds.png") center / cover no-repeat;
@@ -8,6 +11,10 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+button {
+    font-family: inherit;
 }
 
 .pomodoro-icon {
@@ -23,6 +30,7 @@ body {
 .pomodoro-btn {
     background: #f7cdf699;
     border: 1px solid rgb(104, 82, 104, 0.4);
+    border-radius: 10px;
 }
 
 #timer-info {
@@ -33,6 +41,31 @@ body {
     background: #e8cdf766;
     border: 1px solid rgb(104, 82, 104);
     padding: 20px;
-
 }
 
+#window-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+#main-content {
+    padding: 30px;
+}
+
+.window-btn button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(104, 82, 104);
+    background: #e8cdf7;
+    cursor: pointer;
+    color: rgb(104, 82, 104);
+    margin-left: 5px;
+    padding: 0;
+}
+
+.window-btn {
+    display: flex;
+    margin-left: auto;
+}
