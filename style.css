@@ -188,6 +188,9 @@ button {
 
 #window.minimized, #timer-window.minimized {
     height: auto;
+    position: fixed;
+    bottom: 50px;
+    margin: 0;
 }
 
 .minimized > :not(#window-bar):not(#timer-window-bar) {
