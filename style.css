@@ -19,11 +19,12 @@ button {
 
 .pomodoro-icon {
     display: block;
-    height: 100px;
-    width: 100px;
+    height: 128px;
+    width: 134px;
     object-fit: contain;
     image-rendering: pixelated;
     margin: 30px;
+    padding: 20px 0 6px;
 
 }
 
@@ -32,8 +33,8 @@ button {
     border: 1px solid rgb(104, 82, 104, 0.1);
     border-radius: 10px;
     box-shadow: 1px 1px 0 rgba(105, 82, 105, 0.3);
-    padding: 10px;
-    margin: 5px;
+    padding: 4px 6px 8px;
+    margin: 0;
 }
 
 .pomodoro-btn:hover {
@@ -52,6 +53,9 @@ button {
     -webkit-backdrop-filter: blur(3px);
     border: 1px solid rgb(104, 82, 104);
     margin: 15px;
+    width: 540px;
+    height: 420px;
+    box-sizing: border-box;
 }
 
 #window-bar,
@@ -67,7 +71,7 @@ button {
 
 #main-content,
 #timer-content {
-    padding: 30px;
+    padding: 20px;
 }
 
 .window-btn {
@@ -98,4 +102,22 @@ button {
     font-family: 'VT323', monospace;
     font-size: 100px;
     line-height: 1;
+}
+
+#pomodoro {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#timer-info {
+    margin: 15px 0 0;
+}
+
+#timer-info h1 {
+    margin: 0 0 5px;
+}
+
+#timer-info p {
+    margin: 5px 0;
 }
