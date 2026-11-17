@@ -19,13 +19,18 @@ button {
 
 .pomodoro-icon {
     display: block;
-    width: 128px;
-    height: 134px;
+    width: 160px;
+    height: 160px;
+    box-sizing: border-box;
     object-fit: contain;
     image-rendering: pixelated;
-    margin: 8px;
+    margin: 4px;
     filter: drop-shadow(0 0 5px rgba(241, 67, 241, 0.6));
     transition: transform 0.1s;
+}
+
+#moon-image {
+    padding: 13px 30px;
 }
 
 .pomodoro-btn {
@@ -43,8 +48,8 @@ button {
     -webkit-backdrop-filter: blur(3px);
     border: 1px solid rgb(104, 82, 104);
     margin: 15px;
-    width: 540px;
-    height: 420px;
+    width: 600px;
+    height: 400px;
     box-sizing: border-box;
 }
 
