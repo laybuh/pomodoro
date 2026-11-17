@@ -11,6 +11,7 @@ const timerWindow = document.getElementById("timer-window");
 const timerImg = document.getElementById("timer-image");
 const timerCloseButton = document.getElementById("timer-close-btn");
 const mainWindow = document.getElementById("window");
+const moonImgs = ["moon5.png", "moon4.png", "moon3.png", "moon1.png", "moon3.png", "moon4.png"];
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -52,6 +53,7 @@ function reset() {
     stop();
     totalSeconds = pomodoroMinutes * 60;
     message.textContent = "";
+    resetImg();
     showTime();
 }
 
@@ -63,6 +65,8 @@ function timeTick() {
         stop();
         playAlertSound();
         message.textContent = "Time's up!";
+        showFinishedImg();
+        return;
     }
 
     if (secondsLeft !== totalSeconds) {
@@ -73,7 +77,7 @@ function timeTick() {
     updateTimerImg();
 }
 
-function setTimerType(minutes, timerType) {
+function setTimerType(minutes, newTimerType) {
     stop();
     timerType = newTimerType;
     pomodoroMinutes = minutes;
@@ -116,10 +120,16 @@ function steamLoop() {
     imgLoop = setTimeout(steamLoop, 700);
 }
 
+function moonLoop() {
+    loopFrame = (loopFrame + 1) % moonFrames.length;
+    timerImg.src = moonFrames[loopFrame];
+    imgLoop = setTimeout(moonLoop, 400);
+}
+
 function kittyBreathLoop() {
     loopFrame = loopFrame === 2 ? 3 : 2;
     timerImg.src = `cat${loopFrame}.png`;
-    imgLoop = setTimeout(steamLoop, 2 ? 1200 : 900);
+    imgLoop = setTimeout(kittyBreathLoop, 2 ? 1200 : 900);
 }
 
 function kittyBlinkLoop() {
@@ -156,14 +166,8 @@ function updateTimerImg() {
         }
     }
     else {
-        if (timePassed < 1 / 3) {
-            timerImg.src = "moon5.png";
-        }
-        else if (timePassed < 2 / 3) {
-            timerImg.src = "moon4.png";
-        }
-        else {
-            timerImg.src = "moon3.png";
+        if (!imgLoop) {
+            moonLoop();
         }
     }
 }
@@ -191,7 +195,7 @@ function showFinishedImg() {
         kittyBlinkLoop();
     }
     else {
-        timerImg.src = "moon5.png";
+        timerImg.src = "moon1.png";
     }
 }
 
