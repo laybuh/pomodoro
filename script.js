@@ -7,6 +7,10 @@ const focusButton = document.getElementById("focus-btn");
 const breakButton = document.getElementById("break-btn");
 const longBreakButton = document.getElementById("long-break-btn");
 const message = document.getElementById("message");
+const timerWindow = document.getElementById("timer-window")
+const timerImg = document.getElementById("timer-image")
+const timerCloseButton = document.getElementById("timer-close-btn")
+const mainWindow = document.getElementById("window")
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -60,12 +64,21 @@ function timeTick(){
     }
 }
 
-function setTimerType(minutes) {
+function setTimerType(minutes, img) {
     stop();
     pomodoroMinutes = minutes;
     totalSeconds = pomodoroMinutes * 60;
     message.textContent = "";
+    timerImg.src = img;
+    mainWindow.hidden = true;
+    timerWindow.hidden = false;
     showTime();
+}
+
+function closeTimerWindow() {
+    reset();
+    mainWindow.hidden = false;
+    timerWindow.hidden = true;
 }
 
 function playAlertSound() {
@@ -81,8 +94,9 @@ function playAlertSound() {
 startButton.addEventListener("click", start);
 stopButton.addEventListener("click", stop);
 resetButton.addEventListener("click", reset);
-focusButton.addEventListener("click", () => setTimerType(25));
-breakButton.addEventListener("click", () => setTimerType(5));
-longBreakButton.addEventListener("click", () => setTimerType(15));
+focusButton.addEventListener("click", () => setTimerType(25, "coffee1.png"));
+breakButton.addEventListener("click", () => setTimerType(5, "cat2.png"));
+longBreakButton.addEventListener("click", () => setTimerType(15, "moon5.png"));
+timerCloseButton.addEventListener("click", closeTimerWindow);
 
 showTime();

@@ -37,12 +37,13 @@ button {
     margin: 10px;
 }
 
-#window {
+#window, #timer-window {
     background: #e8cdf766;
     border: 1px solid rgb(104, 82, 104);
+    margin: 15px;
 }
 
-#window-bar {
+#window-bar, #timer-window-bar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -52,7 +53,7 @@ button {
     border-bottom: 1px solid rgb(104, 82, 104);
 }
 
-#main-content {
+#main-content, #timer-content {
     padding: 30px;
 }
 
@@ -66,4 +67,16 @@ button {
     padding: 0;
     font-size: 20px;
     line-height: 1;
+}
+
+.timer-art {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    padding: 20px;
+}
+
+#timer-btns {
+    padding: 20px;
 }
