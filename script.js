@@ -143,7 +143,7 @@ function moonLoop() {
 function kittyBreathLoop() {
     loopFrame = loopFrame === 2 ? 3 : 2;
     timerImg.src = `cat${loopFrame}.png`;
-    imgLoop = setTimeout(kittyBreathLoop, 2 ? 1200 : 900);
+    imgLoop = setTimeout(kittyBreathLoop, 1200);
 }
 
 function kittyBlinkLoop() {
