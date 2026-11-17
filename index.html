@@ -12,6 +12,7 @@
     <div id="window">
         <!-- window bar -->
         <div id="window-bar">
+            <button class="window-btn" id="close-btn">x</button>
             <button class="window-btn" id="minimize-btn">_</button>
             <button class="window-btn" id="maximize-btn">□</button>
         </div>
@@ -35,20 +36,23 @@
             <div id="timer-info">
                 <h1>pomodoro timer</h1>
                 <p>welcome to my cute little pomodoro timer app.</p>
-                <p>click on the button below to start the timer!</p>
+                <p>pick a mode to start the timer!</p>
             </div>
-            <!--timer itself-->
-            <div id="timer">
-                <span id="minutes">25</span>:<span id="seconds">00</span>
-            </div>
-            <!--time's up message-->
-            <div id="message"></div>
-            <!--timer buttons-->
-            <div id="timer-btns">
-                <button id="start-btn">start</button>
-                <button id="stop-btn">stop</button>
-                <button id="reset-btn">reset</button>
-            </div>
+        </div>
+    </div>
+    <div id="timer-window">
+
+        <!--timer itself-->
+        <div id="timer">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <!--time's up message-->
+        <div id="message"></div>
+        <!--timer buttons-->
+        <div id="timer-btns">
+            <button id="start-btn">start</button>
+            <button id="stop-btn">stop</button>
+            <button id="reset-btn">reset</button>
         </div>
     </div>
 
