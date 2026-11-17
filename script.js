@@ -91,14 +91,14 @@ function setTimerType(minutes, newTimerType) {
     resetImg();
     mainWindow.hidden = true;
     timerWindow.hidden = false;
-    timerWindow.classList.remove("minimized");
+    setMinimized(timerWindow, timerMinimizeButton, false);
     showTime();
 }
 
 function closeTimerWindow() {
     reset();
     mainWindow.hidden = false;
-    mainWindow.classList.remove("minimized");
+    setMinimized(mainWindow, minimizeButton, false);
     timerWindow.hidden = true;
 }
 
@@ -208,6 +208,11 @@ function showFinishedImg() {
     }
 }
 
+function setMinimized(win, button, isMinimized) {
+    win.classList.toggle("minimized", isMinimized);
+    button.textContent = isMinimized ? "□" : "_";
+}
+
 
 startButton.addEventListener("click", start);
 stopButton.addEventListener("click", stop);
@@ -229,16 +234,16 @@ desktopButton.addEventListener("click", () => {
     }
     else {
         mainWindow.hidden = false;
-        timerWindow.classList.remove("minimized");
+        setMinimized(mainWindow, minimizeButton, false);;
     }
 })
 
 minimizeButton.addEventListener("click", () => {
-    mainWindow.classList.toggle("minimized");
+    setMinimized(mainWindow, minimizeButton, !mainWindow.classList.contains("minimized"));
 })
 
 timerMinimizeButton.addEventListener("click", () => {
-    timerWindow.classList.toggle("minimized");
+    setMinimized(timerWindow, minimizeButton, !timerWindow.classList.contains("minimized"));
 })
 
 showTime();
