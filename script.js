@@ -12,6 +12,7 @@ let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
 let timer = null;
 let endTime = null;
+let audioContext = null;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -27,6 +28,9 @@ function stop() {
 function start() {
     if (timer) return;
     if (totalSeconds <= 0) return;
+
+    if (!audioContext) audioContext = new AudioContext();
+    audioContext.resume();
 
     message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
@@ -65,7 +69,7 @@ function setTimerType(minutes) {
 }
 
 function playAlertSound() {
-    const ctx = new AudioContext();
+    if (!audioContext) return;
     const oscillator = ctx.createOscillator();
     oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(440, ctx.currentTime);
