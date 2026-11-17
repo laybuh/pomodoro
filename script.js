@@ -13,6 +13,10 @@ const timerCloseButton = document.getElementById("timer-close-btn");
 const mainWindow = document.getElementById("window");
 const moonImgs = ["moon5.png", "moon4.png", "moon3.png", "moon1.png", "moon3.png", "moon4.png"];
 const coffeeImgs = ["coffee1.png", "coffee2.png", "coffee3.png", "coffee4.png", "coffee5.png"];
+const closeButton = document.getElementById("close-btn");
+const desktopButton = document.getElementById("reopen-btn");
+const minimizeButton = document.getElementById("minimize-btn");
+const timerMinimizeButton = document.getElementById("timer-minimize-btn");
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -87,12 +91,14 @@ function setTimerType(minutes, newTimerType) {
     resetImg();
     mainWindow.hidden = true;
     timerWindow.hidden = false;
+    timerWindow.classList.remove("minimized");
     showTime();
 }
 
 function closeTimerWindow() {
     reset();
     mainWindow.hidden = false;
+    mainWindow.classList.remove("minimized");
     timerWindow.hidden = true;
 }
 
@@ -118,7 +124,7 @@ function stopImgLoop() {
 function coffeeLoop() {
     loopFrame = (loopFrame + 1) % coffeeImgs.length;
     timerImg.src = coffeeImgs[loopFrame];
-    imgLoop = setTimeout(coffeeLoop, 800);
+    imgLoop = setTimeout(coffeeLoop, 1000);
 }
 
 function moonLoop() {
@@ -210,5 +216,29 @@ focusButton.addEventListener("click", () => setTimerType(25, "focus"));
 breakButton.addEventListener("click", () => setTimerType(5, "short"));
 longBreakButton.addEventListener("click", () => setTimerType(15, "long"));
 timerCloseButton.addEventListener("click", closeTimerWindow);
+
+closeButton.addEventListener("click", () => {
+    reset();
+    mainWindow.hidden = true;
+    timerWindow.hidden = true;
+})
+
+desktopButton.addEventListener("click", () => {
+    if (!timerWindow.hidden) {
+        closeTimerWindow()
+    }
+    else {
+        mainWindow.hidden = false;
+        timerWindow.classList.remove("minimized");
+    }
+})
+
+minimizeButton.addEventListener("click", () => {
+    mainWindow.classList.toggle("minimized");
+})
+
+timerMinimizeButton.addEventListener("click", () => {
+    timerWindow.classList.toggle("minimized");
+})
 
 showTime();
