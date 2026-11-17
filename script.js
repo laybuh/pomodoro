@@ -7,10 +7,10 @@ const focusButton = document.getElementById("focus-btn");
 const breakButton = document.getElementById("break-btn");
 const longBreakButton = document.getElementById("long-break-btn");
 const message = document.getElementById("message");
-const timerWindow = document.getElementById("timer-window")
-const timerImg = document.getElementById("timer-image")
-const timerCloseButton = document.getElementById("timer-close-btn")
-const mainWindow = document.getElementById("window")
+const timerWindow = document.getElementById("timer-window");
+const timerImg = document.getElementById("timer-image");
+const timerCloseButton = document.getElementById("timer-close-btn");
+const mainWindow = document.getElementById("window");
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
