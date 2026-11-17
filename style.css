@@ -91,6 +91,23 @@ button {
 
 #timer-btns {
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#timer-btns button {
+    font-family: 'Silkscreen', san-serif;
+    color: #000;
+    background: #f6c6f7;
+    box-shadow: 
+                inset 3px 3px 0 #fbd0fb,
+                inset -3px -3px #c592cb,
+                3px 3px 0 rgba(77, 60, 77, 0.3);
+    border: 2px solid rgb(128, 95, 128);
+    padding: 8px 18px;
+    border-radius: 0;
+    cursor: pointer;
 }
 
 #timer {
