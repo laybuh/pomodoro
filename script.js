@@ -234,7 +234,7 @@ desktopButton.addEventListener("click", () => {
     }
     else {
         mainWindow.hidden = false;
-        setMinimized(mainWindow, minimizeButton, false);;
+        setMinimized(mainWindow, minimizeButton, false);
     }
 })
 
@@ -243,7 +243,7 @@ minimizeButton.addEventListener("click", () => {
 })
 
 timerMinimizeButton.addEventListener("click", () => {
-    setMinimized(timerWindow, minimizeButton, !timerWindow.classList.contains("minimized"));
+    setMinimized(timerWindow, timerMinimizeButton, !timerWindow.classList.contains("minimized"));
 })
 
 showTime();
