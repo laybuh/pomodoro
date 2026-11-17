@@ -17,6 +17,9 @@ let totalSeconds = pomodoroMinutes * 60;
 let timer = null;
 let endTime = null;
 let audioContext = null;
+let timerType = "focus";
+let imgLoop = null;
+let loopFrame = 1;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -24,8 +27,10 @@ function showTime() {
 }
 
 function stop() {
+    if (!timer) return;
     clearInterval(timer);
     timer = null;
+    stopImgLoop();
 }
 
 
@@ -39,6 +44,8 @@ function start() {
     message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
     timer = setInterval(timeTick, 250);
+
+    updateTimerImg();
 }
 
 function reset() {
@@ -48,7 +55,7 @@ function reset() {
     showTime();
 }
 
-function timeTick(){
+function timeTick() {
     const timeLeft = endTime - Date.now();
     const secondsLeft = Math.max(0, Math.ceil(timeLeft / 1000));
 
@@ -62,14 +69,17 @@ function timeTick(){
         totalSeconds = secondsLeft;
         showTime();
     }
+
+    updateTimerImg();
 }
 
-function setTimerType(minutes, img) {
+function setTimerType(minutes, timerType) {
     stop();
+    timerType = newTimerType;
     pomodoroMinutes = minutes;
     totalSeconds = pomodoroMinutes * 60;
     message.textContent = "";
-    timerImg.src = img;
+    resetImg();
     mainWindow.hidden = true;
     timerWindow.hidden = false;
     showTime();
@@ -91,12 +101,107 @@ function playAlertSound() {
     oscillator.stop(audioContext.currentTime + 0.4);
 }
 
+function getTimePassed() {
+    return 1 - totalSeconds / (pomodoroMinutes * 60);
+}
+
+function stopImgLoop() {
+    clearTimeout(imgLoop);
+    imgLoop = null;
+}
+
+function steamLoop() {
+    loopFrame = loopFrame === 1 ? 2 : 1;
+    timerImg.src = `coffee${loopFrame}.png`;
+    imgLoop = setTimeout(steamLoop, 700);
+}
+
+function kittyBreathLoop() {
+    loopFrame = loopFrame === 2 ? 3 : 2;
+    timerImg.src = `cat${loopFrame}.png`;
+    imgLoop = setTimeout(steamLoop, 2 ? 1200 : 900);
+}
+
+function kittyBlinkLoop() {
+    timerImg.src = "cat1.png";
+    imgLoop = setTimeout(() => {
+        timerImg.src("cat2.png");
+        imgLoop = setTimeout(kittyBlinkLoop, 150);
+    }, 3000);
+}
+
+function updateTimerImg() {
+    const timePassed = getTimePassed();
+
+    if (timerType == "focus") {
+        if (timePassed < 0.4) {
+            if (!imgLoop) steamLoop();
+        }
+        else {
+            stopImgLoop();
+            if (timePassed < 0.6) {
+                timerImg.src = "coffee3.png";
+            }
+            else if (timePassed < 0.8) {
+                timerImg.src = "coffee4.png";
+            }
+            else {
+                timerImg.src = "coffee5.png";
+            }
+        }
+    }
+    else if (timerType == "short") {
+        if (!imgLoop) {
+            kittyBreathLoop();
+        }
+    }
+    else {
+        if (timePassed < 1 / 3) {
+            timerImg.src = "moon5.png";
+        }
+        else if (timePassed < 2 / 3) {
+            timerImg.src = "moon4.png";
+        }
+        else {
+            timerImg.src = "moon3.png";
+        }
+    }
+}
+
+function resetImg() {
+    stopImgLoop();
+    loopFrame = 1;
+    if (timerType == "focus") {
+        timerImg.src = "coffee1.png";
+    }
+    else if (timerType == "short") {
+        timerImg.src = "cat2.png";
+    }
+    else {
+        timerImg.src = "moon5.png";
+    }
+}
+
+function showFinishedImg() {
+    stopImgLoop();
+    if (timerType == "focus") {
+        timerImg.src = "coffee5.png";
+    }
+    else if (timerType == "short") {
+        kittyBlinkLoop();
+    }
+    else {
+        timerImg.src = "moon5.png";
+    }
+}
+
+
 startButton.addEventListener("click", start);
 stopButton.addEventListener("click", stop);
 resetButton.addEventListener("click", reset);
-focusButton.addEventListener("click", () => setTimerType(25, "coffee1.png"));
-breakButton.addEventListener("click", () => setTimerType(5, "cat2.png"));
-longBreakButton.addEventListener("click", () => setTimerType(15, "moon5.png"));
+focusButton.addEventListener("click", () => setTimerType(25, "focus"));
+breakButton.addEventListener("click", () => setTimerType(5, "short"));
+longBreakButton.addEventListener("click", () => setTimerType(15, "long"));
 timerCloseButton.addEventListener("click", closeTimerWindow);
 
 showTime();
