@@ -36,12 +36,6 @@ button {
     cursor: pointer;
 }
 
-.pomodoro-btn:hover {
-    transform: translateY(-4px);
-    background: rgba(245, 191, 245, 0.3);
-}
-
-
 #window,
 #timer-window {
     background: rgba(243, 188, 254, 0.4);
@@ -120,6 +114,9 @@ button {
 
 #timer-info p {
     margin: 5px 0;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: rgb(77, 60, 77);
 }
 
 .pomodoro-label {
