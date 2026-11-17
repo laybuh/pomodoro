@@ -40,33 +40,30 @@ button {
 #window {
     background: #e8cdf766;
     border: 1px solid rgb(104, 82, 104);
-    padding: 20px;
 }
 
 #window-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 5px 10px;
+    padding: 5px;
+    gap: 10px;
+    background: rgba(243, 170, 249, 0.3);
+    border-bottom: 1px solid rgb(104, 82, 104);
 }
 
 #main-content {
     padding: 30px;
 }
 
-.window-btn button {
+.window-btn {
     width: 30px;
     height: 30px;
     border: 1px solid rgb(104, 82, 104);
     background: #e8cdf7;
     cursor: pointer;
     color: rgb(104, 82, 104);
-    margin-left: 5px;
     padding: 0;
+    font-size: 20px;
+    line-height: 1;
 }
-
-.window-btn {
-    display: flex;
-    margin-left: auto;
-}
-
