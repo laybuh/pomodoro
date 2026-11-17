@@ -70,12 +70,12 @@ function setTimerType(minutes) {
 
 function playAlertSound() {
     if (!audioContext) return;
-    const oscillator = ctx.createOscillator();
+    const oscillator = audioContext.createOscillator();
     oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(440, ctx.currentTime);
-    oscillator.connect(ctx.destination);
+    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+    oscillator.connect(audioContext.destination);
     oscillator.start();
-    oscillator.stop(ctx.currentTime + 0.4);
+    oscillator.stop(audioContext.currentTime + 0.4);
 }
 
 startButton.addEventListener("click", start);
