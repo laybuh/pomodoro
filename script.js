@@ -25,7 +25,7 @@ let endTime = null;
 let audioContext = null;
 let timerType = "focus";
 let imgLoop = null;
-let loopFrame = 1;
+let loopFrame = 0;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -123,9 +123,7 @@ function playAlertSound() {
     });
 }
 
-function getTimePassed() {
-    return 1 - totalSeconds / (pomodoroMinutes * 60);
-}
+
 
 function stopImgLoop() {
     clearTimeout(imgLoop);
@@ -159,25 +157,12 @@ function kittyBlinkLoop() {
 }
 
 function updateTimerImg() {
-    const timePassed = getTimePassed();
+
 
     if (timerType == "focus") {
-        if (timePassed < 0.4) {
-            if (!imgLoop) {
-                coffeeLoop();
-            }
-        }
-        else {
-            stopImgLoop();
-            if (timePassed < 0.6) {
-                timerImg.src = "coffee3.png";
-            }
-            else if (timePassed < 0.8) {
-                timerImg.src = "coffee4.png";
-            }
-            else {
-                timerImg.src = "coffee5.png";
-            }
+
+        if (!imgLoop) {
+            coffeeLoop();
         }
     }
     else if (timerType == "short") {
