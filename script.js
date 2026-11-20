@@ -26,6 +26,7 @@ let audioContext = null;
 let timerType = "focus";
 let imgLoop = null;
 let loopFrame = 0;
+let wakeLock = null;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -37,6 +38,7 @@ function stop() {
     clearInterval(timer);
     timer = null;
     stopImgLoop();
+    releaseWakeLock();
 }
 
 
@@ -54,6 +56,7 @@ function start() {
     message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
     timer = setInterval(timeTick, 250);
+    requestWakeLock();
 
     updateTimerImg();
 }
@@ -80,7 +83,7 @@ function timeTick() {
         playAlertSound();
         if ("Notification" in window && Notification.permission === "granted") {
             navigator.serviceWorker.ready.then((registration) => {
-                registration.showNotification("time's up!", { body: "take a break", icon: "images/icon3.png", vibrate: [200, 100, 200] });
+                registration.showNotification("time's up!", { body: "take a break", icon: "images/icon3.png", vibrate: [200, 100, 200], tag: "pomodoro", requireInteraction: true });
             });
         }
         message.textContent = "Time's up!";
@@ -114,13 +117,37 @@ function closeTimerWindow() {
 function playAlertSound() {
     if (!audioContext) return;
     audioContext.resume().then(() => {
-        const oscillator = audioContext.createOscillator();
-        oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-        oscillator.connect(audioContext.destination);
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.4);
+        const notes = [784, 988, 1175, 1568];
+        for (let repeat = 0; repeat < 3; repeat++) {
+            notes.forEach((freq, i) => {
+                const time = audioContext.currentTime + repeat * 1 + i * 0.15;
+                const oscillator = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                oscillator.type = "triangle";
+                oscillator.frequency.setValueAtTime(freq, time);
+                gain.gain.setValueAtTime(0.0001, time);
+                gain.gain.exponentialRampToValueAtTime(0.3, time + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.4);
+                oscillator.connect(gain);
+                gain.connect(audioContext.destination);
+                oscillator.start(time);
+                oscillator.stop(time + 0.45);
+            });
+        }
     });
+}
+
+function requestWakeLock() {
+    if (!("wakeLock" in navigator)) return;
+    navigator.wakeLock.request("screen").then((lock) => {
+        wakeLock = lock;
+    }).catch(() => { });
+}
+
+function releaseWakeLock() {
+    if (!wakeLock) return;
+    wakeLock.release();
+    wakeLock = null;
 }
 
 
@@ -240,6 +267,12 @@ minimizeButton.addEventListener("click", () => {
 
 timerMinimizeButton.addEventListener("click", () => {
     setMinimized(timerWindow, timerMinimizeButton, !timerWindow.classList.contains("minimized"));
+})
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && timer) {
+        requestWakeLock();
+    }
 })
 
 showTime();

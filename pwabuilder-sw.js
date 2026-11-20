@@ -1,4 +1,4 @@
-const CACHE = "pomodoro5";
+const CACHE = "pomodoro6";
 
 const FILES = [
   "./",
@@ -46,5 +46,15 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request))
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: "window" }).then((list) => {
+      if (list.length) return list[0].focus();
+      return self.clients.openWindow("./");
+    })
   );
 });
