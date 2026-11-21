@@ -17,7 +17,7 @@ const closeButton = document.getElementById("close-btn");
 const desktopButton = document.getElementById("reopen-btn");
 const minimizeButton = document.getElementById("minimize-btn");
 const timerMinimizeButton = document.getElementById("timer-minimize-btn");
-const vapidPublicKey = "PASTE_YOUR_VAPID_PUBLIC_KEY_HERE";
+const vapidPublicKey = "BBISWUfeSfR_Sech_MUkShHlJcObFRLyYeXIx99NxPmAvi0EWC_LlOXsDZX-aBIEe66tTA95L87vA4YhVW7AwbM";
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
