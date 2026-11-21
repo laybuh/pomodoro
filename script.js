@@ -17,6 +17,7 @@ const closeButton = document.getElementById("close-btn");
 const desktopButton = document.getElementById("reopen-btn");
 const minimizeButton = document.getElementById("minimize-btn");
 const timerMinimizeButton = document.getElementById("timer-minimize-btn");
+const vapidPublicKey = "PASTE_YOUR_VAPID_PUBLIC_KEY_HERE";
 
 let pomodoroMinutes = 25;
 let totalSeconds = pomodoroMinutes * 60;
@@ -27,6 +28,7 @@ let timerType = "focus";
 let imgLoop = null;
 let loopFrame = 0;
 let wakeLock = null;
+let pushMessageId = null;
 
 function showTime() {
     minutesInput.textContent = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
@@ -39,6 +41,7 @@ function stop() {
     timer = null;
     stopImgLoop();
     releaseWakeLock();
+    cancelPush();
 }
 
 
@@ -49,14 +52,11 @@ function start() {
     if (!audioContext) audioContext = new AudioContext();
     audioContext.resume();
 
-    if ("Notification" in window && Notification.permission === "default") {
-        Notification.requestPermission();
-    }
-
     message.textContent = "";
     endTime = Date.now() + totalSeconds * 1000;
     timer = setInterval(timeTick, 250);
     requestWakeLock();
+    schedulePush();
 
     updateTimerImg();
 }
@@ -79,6 +79,7 @@ function timeTick() {
     }
 
     if (secondsLeft === 0) {
+        pushMessageId = null;
         stop();
         playAlertSound();
         if ("Notification" in window && Notification.permission === "granted") {
@@ -151,6 +152,59 @@ function releaseWakeLock() {
 }
 
 
+
+function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const raw = atob(base64);
+    return Uint8Array.from(raw, (char) => char.charCodeAt(0));
+}
+
+async function schedulePush() {
+    if (!("Notification" in window)) return;
+    const scheduledEnd = endTime;
+
+    try {
+        const permission = await Notification.requestPermission();
+        if (permission != "granted" || !("serviceWorker" in navigator) || !("PushManager" in window)) return;
+
+        const registration = await navigator.serviceWorker.ready;
+        let subscription = await registration.pushManager.getSubscription();
+        if (!subscription) {
+            subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(vapidPublicKey) });
+        }
+
+        const response = await fetch("/api/schedule", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ subscription, endTime: scheduledEnd, title: "time's up!", body: "take a break" })
+        });
+        const data = await response.json();
+
+        if (timer && endTime == scheduledEnd) {
+            pushMessageId = data.messageId;
+        }
+        else {
+            sendCancel(data.messageId);
+        }
+    }
+    catch (error) { }
+}
+
+function cancelPush() {
+    if (!pushMessageId) return;
+    sendCancel(pushMessageId);
+    pushMessageId = null;
+}
+
+function sendCancel(messageId) {
+    if (!messageId) return;
+    fetch("/api/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messageId })
+    }).catch(() => { });
+}
 
 function stopImgLoop() {
     clearTimeout(imgLoop);

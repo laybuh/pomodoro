@@ -1,4 +1,4 @@
-const CACHE = "pomodoro6";
+const CACHE = "pomodoro7";
 
 const FILES = [
   "./",
@@ -46,6 +46,19 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request))
+  );
+});
+
+self.addEventListener("push", (event) => {
+  const data = event.data ? event.data.json() : {};
+  event.waitUntil(
+    self.registration.showNotification(data.title || "time's up!", {
+      body: data.body || "take a break",
+      icon: "images/icon3.png",
+      vibrate: [200, 100, 200],
+      tag: "pomodoro",
+      requireInteraction: true
+    })
   );
 });
 

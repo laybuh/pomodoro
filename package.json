@@ -1,0 +1,9 @@
+{
+  "name": "pomodoro",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@upstash/qstash": "^2.12.2",
+    "web-push": "^4.0.0"
+  }
+}
